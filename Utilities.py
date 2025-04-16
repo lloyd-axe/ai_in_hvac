@@ -63,7 +63,7 @@ class SimulatedRoomConditionsDataset(Dataset):
         return data
 
 
-class ScikitDataEval:
+class DataEvaluation:
     @staticmethod
     def evaluate_regression(y_pred: np.ndarray, y_test: np.ndarray, threshold: float = 0.1) \
             -> (float, float, float):

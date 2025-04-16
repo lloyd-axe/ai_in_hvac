@@ -7,7 +7,7 @@ import xgboost as xgb
 from tqdm.auto import tqdm
 from torch.utils.data import DataLoader
 from sklearn.model_selection import train_test_split
-from Utilities import SimulatedRoomConditionsDataset, ScikitDataEval
+from Utilities import SimulatedRoomConditionsDataset, DataEvaluation
 
 
 class GradientBoostedRegressionTree:
@@ -21,7 +21,7 @@ class GradientBoostedRegressionTree:
             -> tuple:
         self.model.fit(x_train, y_train)
         y_pred = self.model.predict(x_test)
-        score, mae, rmse, r2 = ScikitDataEval.evaluate_regression(y_pred=y_pred, y_test=y_test)
+        score, mae, rmse, r2 = DataEvaluation.evaluate_regression(y_pred=y_pred, y_test=y_test)
         return score, mae, rmse, r2
 
     def inference(self, x):
@@ -115,7 +115,7 @@ class NeuralNetworkModelPipeline:
                     y_preds.append(output)
                     y_true.append(output_data)
 
-        score, mae, rmse, r2 = ScikitDataEval.evaluate_regression(y_pred=torch.cat(y_preds).cpu().numpy(),
+        score, mae, rmse, r2 = DataEvaluation.evaluate_regression(y_pred=torch.cat(y_preds).cpu().numpy(),
                                                                   y_test=torch.cat(y_true).cpu().numpy())
         return score, mae, rmse, r2
 
